@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COCOA GUARD | Precision AI Health Diagnosis</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold-outer: #baa478;
+            --gold-outer-dark: #a89366;
+            --gold-frame: #d9bf89;
+            --gold-frame-border: #bfa168;
+            --gold-accent: #c48c40;
+            --gold-accent-hover: #aa742e;
+            --bg-parchment: #f9f5eb;
+            --bg-card: #fefdfa;
+            --text-title: #2b2319;
+            --text-sub: #6f6354;
+            --text-muted-gold: #968975;
+            --font-serif: 'Cinzel', serif;
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: radial-gradient(circle at center, var(--gold-outer) 0%, var(--gold-outer-dark) 100%);
+            min-height: 100vh;
+            padding: 24px 20px 40px;
+            color: var(--text-title);
+            overflow-x: hidden;
+        }
+
+        /* Full Page Bezel / Frame */
+        .app-bezel-frame {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #edd6a6 0%, #dfc38a 35%, #cca86b 100%);
+            border-radius: 42px;
+            padding: 16px;
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.28), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-inner-screen {
+            background: linear-gradient(180deg, #faf5eb 0%, #f4ebd6 40%, #e9d9b6 100%);
+            border-radius: 32px;
+            padding: 26px 30px 30px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        /* Top Header */
+        .app-top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 10px;
+        }
+
+        .header-brand-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: 3px;
+            color: var(--text-title);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Emblem Logo */
+        .header-emblem-logo {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-emblem-svg {
+            width: 38px;
+            height: 38px;
+        }
+
+        .header-login-btn {
+            background: #ffffff;
+            color: #4a4033;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 24px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .header-login-btn:hover {
+            background: #fdfdfd;
+            color: var(--gold-accent);
+            transform: translateY(-1px);
+        }
+
+        /* Full-Width Hero Card (Responsive 2-Column Grid) */
+        .hero-botanical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        @media (max-width: 992px) {
+            .hero-card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-left-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .hero-main-title {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-title);
+            letter-spacing: 1.5px;
+            line-height: 1.12;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-main-title {
+                font-size: 2.1rem;
+            }
+        }
+
+        .hero-description {
+            font-size: 0.95rem;
+            color: #5c5040;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 540px;
+        }
+
+        /* Primary Action Gold Pill */
+        .btn-scan-main {
+            background: linear-gradient(180deg, #d49a4a 0%, #ba7f32 100%);
+            color: #ffffff;
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 15px 36px;
+            border-radius: 35px;
+            border: none;
+            box-shadow: 0 10px 25px rgba(186, 127, 50, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            width: fit-content;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-bottom: 12px;
+        }
+
+        .btn-scan-main:hover {
+            background: linear-gradient(180deg, #dfa552 0%, #c48737 100%);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(186, 127, 50, 0.45);
+        }
+
+        .hero-help-text {
+            font-size: 0.78rem;
+            color: var(--text-muted-gold);
+            line-height: 1.3;
+        }
+
+        /* Right Botanical Illustration Canvas with Callout Badges */
+        .hero-botanical-img-wrap {
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            background: #f8f4ea;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .hero-plate-img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-botanical-card:hover .hero-plate-img {
+            transform: scale(1.02);
+        }
+
+        /* Annotated Interactive Callout Badges */
+        .callout-badge {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 6px 14px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #2b2319;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(201, 147, 71, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+            z-index: 5;
+        }
+
+        .callout-badge:hover {
+            background: #ffffff;
+            color: var(--gold-accent);
+            transform: scale(1.06);
+        }
+
+        .callout-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold-accent);
+        }
+
+        .callout-top-right {
+            top: 18px;
+            right: 18px;
+        }
+
+        .callout-mid-right {
+            top: 48%;
+            right: 18px;
+        }
+
+        .callout-bot-right {
+            bottom: 18px;
+            right: 18px;
+        }
+
+        /* Drop / Camera Upload Container */
+        .drop-zone-container {
+            display: none;
+            background: #ffffff;
+            border-radius: 26px;
+            padding: 30px;
+            border: 2px dashed var(--gold-accent);
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            margin: 6px 0;
+        }
+
+        .preview-img-box {
+            max-height: 240px;
+            width: auto;
+            border-radius: 16px;
+            display: none;
+            margin: 15px auto;
+            border: 2px solid var(--gold-frame);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        /* 4-Feature Action Cards Row */
+        .features-quad-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .features-quad-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .quad-action-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 20px 16px 22px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            color: var(--text-title);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 180px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .quad-action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
+            color: var(--gold-accent);
+        }
+
+        .quad-card-title {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            line-height: 1.25;
+            text-transform: uppercase;
+            color: var(--text-title);
+            margin-bottom: 8px;
+        }
+
+        .quad-icon-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Camera Viewfinder Icon for Quick Scan */
+        .viewfinder-camera-box {
+            width: 64px;
+            height: 64px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-accent);
+            font-size: 1.6rem;
+        }
+
+        .viewfinder-brackets {
+            position: absolute;
+            inset: 0;
+            border: 2px dashed #cca96f;
+            border-radius: 16px;
+        }
+
+        /* Mini 4-Grid for Disease Library */
+        .library-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+            width: 68px;
+            height: 68px;
+        }
+
+        .mini-thumb {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Vector Map Icon for Farm Overview */
+        .farm-map-icon-box {
+            width: 68px;
+            height: 60px;
+            background: #ecdcb9;
+            border-radius: 12px;
+            border: 2px solid #9c7b45;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .map-pin-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #9c7b45;
+            position: absolute;
+            top: 8px;
+            left: 12px;
+        }
+
+        .map-contour-line {
+            width: 100%;
+            height: 1px;
+            background: #9c7b45;
+            margin: 4px 0;
+        }
+
+        /* Foliage Icon for Metric Overview */
+        .foliage-vector-img {
+            max-width: 66px;
+            max-height: 66px;
+            object-fit: contain;
+        }
+
+        /* Key Cocoa Pathogens Section (Full-Width Grid) */
+        .pathogens-section-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 26px 28px 30px;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            text-align: center;
+        }
+
+        .pathogens-header-title {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-title);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .pathogens-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .pathogens-gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .pathogen-card-item {
+            text-decoration: none;
+            color: var(--text-title);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #faf6ec;
+            padding: 14px;
+            border-radius: 22px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.25s ease;
+        }
+
+        .pathogen-card-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            color: var(--gold-accent);
+            background: #ffffff;
+        }
+
+        .pathogen-thumb-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            margin-bottom: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        }
+
+        .pathogen-name-label {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-title);
+            margin-bottom: 4px;
+        }
+
+        .pathogen-sub-label {
+            font-size: 0.72rem;
+            color: #7d7162;
+        }
+
+        /* Bottom Footer / Slogan */
+        .app-footer-bar {
+            text-align: center;
+            padding: 12px 10px 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .app-footer-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .footer-empower-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-title);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-sparkle {
+            color: #d69842;
+            font-size: 0.95rem;
+        }
+
+        .footer-empower-sub {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        .footer-icons-row {
+            display: flex;
+            gap: 16px;
+            font-size: 1.15rem;
+            color: rgba(60, 48, 32, 0.6);
+        }
+
+        .footer-icon-btn {
+            background: none;
+            border: none;
+            color: rgba(60, 48, 32, 0.6);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .footer-icon-btn:hover {
+            color: var(--gold-accent);
+        }
+
+        /* Embedded Dashboard & Telemetry Styles */
+        .home-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+        @media (max-width: 992px) { .home-kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .home-kpi-grid { grid-template-columns: 1fr; } }
+
+        .home-kpi-box {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .home-kpi-num {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--text-title);
+        }
+
+        .home-kpi-sub {
+            font-size: 0.72rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .home-section-card {
+            background: #ffffff;
+            border-radius: 26px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            margin-bottom: 22px;
+        }
+
+        .thumb-sm {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-severity {
+            padding: 4px 9px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.72rem;
+        }
+        .badge-healthy { background: #d1e7dd; color: #0f5132; }
+        .badge-mild { background: #cff4fc; color: #055160; }
+        .badge-moderate { background: #fff3cd; color: #664d03; }
+        .badge-severe { background: #f8d7da; color: #842029; }
+    </style>
+</head>
+
+<body>
+
+    <!-- Master Full-Width Golden Bezel / Frame -->
+    <div class="app-bezel-frame">
+        <div class="app-inner-screen">
+
+            <!-- 1. Top Header -->
+            <div class="app-top-header">
+                <a href="/" class="header-brand-title">
+                    <i class="fa-solid fa-leaf" style="color: var(--gold-accent);"></i>
+                    <span>COCOA GUARD</span>
+                </a>
+                
+                <!-- Botanical Emblem Logo -->
+                <div class="header-emblem-logo">
+                    <svg class="header-emblem-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 4 C13 12 11 20 18 31 C25 20 23 12 18 4 Z" stroke="#ab8542" stroke-width="2" fill="rgba(217, 182, 114, 0.25)" />
+                        <path d="M18 16 C9 15 5 21 8 28 C14 28 17 22 18 16 Z" stroke="#ab8542" stroke-width="1.8" fill="rgba(217, 182, 114, 0.2)" />
+                        <path d="M18 16 C27 15 31 21 28 28 C22 28 19 22 18 16 Z" stroke="#ab8542" stroke-width="1.8" fill="rgba(217, 182, 114, 0.2)" />
+                    </svg>
+                </div>
+
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <a href="/dashboard" class="header-login-btn text-dark">
+                        <i class="fa-solid fa-chart-pie me-1 text-success"></i>Dashboard
+                    </a>
+                    <a href="/camera" class="header-login-btn text-dark">
+                        <i class="fa-solid fa-video me-1 text-info"></i>Live Camera
+                    </a>
+                    <a href="/docs" class="header-login-btn text-dark">
+                        <i class="fa-solid fa-book-open me-1 text-warning"></i>Docs
+                    </a>
+                    <a href="/download/report" class="header-login-btn text-dark">
+                        <i class="fa-solid fa-file-pdf me-1 text-danger"></i>Report PDF
+                    </a>
+                    <a href="/api/health" target="_blank" class="header-login-btn text-primary">
+                        <i class="fa-solid fa-bolt me-1"></i>AI Status
+                    </a>
+                    <a href="/sample/sample_black_pod.jpg" class="header-login-btn">Demo</a>
+                </div>
+            </div>
+
+            <!-- 2. Hero Botanical Card (Full-Width 2-Column Showcase) -->
+            <div class="hero-botanical-card">
+                <div class="hero-card-grid">
+                    
+                    <!-- Left: Headings & Call to Action -->
+                    <div class="hero-left-content">
+                        <div class="hero-tagline">AI-POWERED COCOA HEALTH DIAGNOSIS</div>
+                        <h1 class="hero-main-title">SCAN YOUR CROP</h1>
+                        <p class="hero-description">
+                            High-precision computer vision powered by Transfer Learning MobileNetV2. Upload or snap a photo of any cocoa pod or tree leaf to instantly diagnose Black Pod Rot, Pod Borer infestations, or verify optimal crop health with tailored fertilizer guidelines.
+                        </p>
+
+                        <!-- Start Scan Button & Camera Link -->
+                        <div class="d-flex gap-2 flex-wrap align-items-center">
+                            <button type="button" class="btn-scan-main shadow" id="btnToggleScan">
+                                <i class="fa-solid fa-upload me-1"></i>
+                                <span>UPLOAD IMAGE SCAN</span>
+                            </button>
+                            <a href="/camera" class="btn-scan-main shadow text-decoration-none" style="background: linear-gradient(180deg, #3d352a 0%, #201b14 100%);">
+                                <i class="fa-solid fa-video me-1 text-warning"></i>
+                                <span>LIVE CAMERA AI</span>
+                            </a>
+                        </div>
+                        <div class="hero-help-text mt-2">Upload a photo or open live camera for real-time plant health analysis.</div>
+
+                        <!-- Mini Performance Indicators -->
+                        <div class="d-flex gap-4 mt-4 pt-2 border-top border-light">
+                            <div>
+                                <div class="fw-bold fs-5 text-dark">99.7%</div>
+                                <div class="small text-muted">Pod Verification</div>
+                            </div>
+                            <div>
+                                <div class="fw-bold fs-5 text-dark">95.5%</div>
+                                <div class="small text-muted">Disease Accuracy</div>
+                            </div>
+                            <div>
+                                <div class="fw-bold fs-5 text-dark">&lt; 200 ms</div>
+                                <div class="small text-muted">Inference Speed</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Botanical Illustration Plate with Callout Badges -->
+                    <div class="hero-botanical-img-wrap">
+                        <img src="{{ url_for('static', filename='cocoa_botanical_hero.jpg') }}" class="hero-plate-img" alt="Theobroma Cacao Botanical Plate">
+                        
+                        <!-- Annotated Disease Callout Badges -->
+                        <a href="/sample/sample_black_pod.jpg" class="callout-badge callout-top-right">
+                            <span class="callout-dot"></span>
+                            <span>Black Pod Rot</span>
+                        </a>
+                        <a href="/sample/sample_pod_borer.jpg" class="callout-badge callout-mid-right">
+                            <span class="callout-dot"></span>
+                            <span>Frosty Pod Rot</span>
+                        </a>
+                        <a href="/sample/sample_pod_borer.jpg" class="callout-badge callout-bot-right">
+                            <span class="callout-dot"></span>
+                            <span>Witches' Broom</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Drop / Camera Zone (Toggled by Button) -->
+            <div class="drop-zone-container" id="dropZoneContainer">
+                <form id="mainUploadForm" action="/search" method="POST" enctype="multipart/form-data">
+                    <i class="fa-solid fa-cloud-arrow-up display-5 text-warning mb-2"></i>
+                    <h5 class="fw-bold mb-1">Upload or Photograph Cocoa Pod</h5>
+                    <p class="small text-muted mb-3">Accepts standard image formats (JPG, PNG, JPEG, WEBP)</p>
+                    
+                    <img id="imagePreview" class="preview-img-box img-fluid" alt="Preview">
+
+                    <div class="d-flex justify-content-center gap-3 mb-3">
+                        <label for="fileInput" class="btn btn-outline-dark px-4 py-2 rounded-pill fw-semibold">
+                            <i class="fa-regular fa-folder-open me-2"></i>Browse Computer Files
+                        </label>
+                        <label for="cameraInput" class="btn btn-outline-success px-4 py-2 rounded-pill fw-semibold">
+                            <i class="fa-solid fa-camera me-2"></i>Live Camera Capture
+                        </label>
+                    </div>
+
+                    <input type="file" id="fileInput" name="file" accept="image/*" class="d-none">
+                    <input type="file" id="cameraInput" accept="image/*" capture="environment" class="d-none">
+
+                    <button type="submit" id="submitScanBtn" class="btn-scan-main mx-auto" disabled>
+                        <span>Analyze Cocoa Pod Now &rarr;</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- 3. Four Feature Action Cards (Row of 4) -->
+            <div class="features-quad-row">
+                <!-- Card 1: QUICK SCAN -->
+                <div class="quad-action-card" id="cardQuickScan" style="cursor: pointer;">
+                    <div class="quad-card-title">QUICK<br>UPLOAD</div>
+                    <div class="quad-icon-area">
+                        <div class="viewfinder-camera-box">
+                            <div class="viewfinder-brackets"></div>
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                    </div>
+                    <span class="small text-muted">File / Photo Scan</span>
+                </div>
+
+                <!-- Card 2: LIVE WEBCAM SCANNER -->
+                <a href="/camera" class="quad-action-card text-decoration-none">
+                    <div class="quad-card-title text-dark">LIVE<br>CAMERA</div>
+                    <div class="quad-icon-area">
+                        <div class="viewfinder-camera-box" style="border-color: #0dcaf0;">
+                            <i class="fa-solid fa-video text-info"></i>
+                        </div>
+                    </div>
+                    <span class="small text-muted">Real-Time Webcam</span>
+                </a>
+
+                <!-- Card 3: ANALYTICS DASHBOARD -->
+                <a href="/dashboard" class="quad-action-card text-decoration-none">
+                    <div class="quad-card-title text-dark">AI<br>DASHBOARD</div>
+                    <div class="quad-icon-area">
+                        <div class="viewfinder-camera-box" style="border-color: #198754;">
+                            <i class="fa-solid fa-chart-pie text-success"></i>
+                        </div>
+                    </div>
+                    <span class="small text-muted">Analytics & History</span>
+                </a>
+
+                <!-- Card 4: WEATHER RISK ENGINE -->
+                <a href="#weatherRiskSection" class="quad-action-card text-decoration-none">
+                    <div class="quad-card-title text-dark">WEATHER<br>RISK</div>
+                    <div class="quad-icon-area">
+                        <div class="viewfinder-camera-box" style="border-color: #ffc107;">
+                            <i class="fa-solid fa-cloud-sun-rain text-warning"></i>
+                        </div>
+                    </div>
+                    <span class="small text-muted">Epidemiology Simulator</span>
+                </a>
+            </div>
+
+            <!-- 3B. Live System Telemetry & KPI Cards -->
+            <div class="home-kpi-grid">
+                <div class="home-kpi-box">
+                    <div class="kpi-icon" style="width:42px; height:42px; border-radius:12px; background:rgba(196,140,64,0.15); display:flex; align-items:center; justify-content:center; color:#c48c40; font-size:1.2rem;">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <div>
+                        <div class="home-kpi-num">{{ stats.total_scans }}</div>
+                        <div class="home-kpi-sub">Total Scans</div>
+                    </div>
+                </div>
+                <div class="home-kpi-box">
+                    <div class="kpi-icon" style="width:42px; height:42px; border-radius:12px; background:rgba(25,135,84,0.15); display:flex; align-items:center; justify-content:center; color:#198754; font-size:1.2rem;">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div>
+                        <div class="home-kpi-num">{{ stats.healthy_count }}</div>
+                        <div class="home-kpi-sub">Healthy Pods</div>
+                    </div>
+                </div>
+                <div class="home-kpi-box">
+                    <div class="kpi-icon" style="width:42px; height:42px; border-radius:12px; background:rgba(220,53,69,0.15); display:flex; align-items:center; justify-content:center; color:#dc3545; font-size:1.2rem;">
+                        <i class="fa-solid fa-virus"></i>
+                    </div>
+                    <div>
+                        <div class="home-kpi-num">{{ stats.diseased_count }}</div>
+                        <div class="home-kpi-sub">Diseased Cases</div>
+                    </div>
+                </div>
+                <div class="home-kpi-box">
+                    <div class="kpi-icon" style="width:42px; height:42px; border-radius:12px; background:rgba(255,193,7,0.2); display:flex; align-items:center; justify-content:center; color:#b78103; font-size:1.2rem;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <div class="home-kpi-num">{{ stats.severe_count }}</div>
+                        <div class="home-kpi-sub">Severe Outbreaks</div>
+                    </div>
+                </div>
+                <div class="home-kpi-box">
+                    <div class="kpi-icon" style="width:42px; height:42px; border-radius:12px; background:rgba(13,202,240,0.15); display:flex; align-items:center; justify-content:center; color:#0dcaf0; font-size:1.2rem;">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="home-kpi-num">{{ stats.avg_confidence }}%</div>
+                        <div class="home-kpi-sub">Avg AI Accuracy</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3C. Embedded Weather Disease Risk Simulator -->
+            <div class="home-section-card" id="weatherRiskSection">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <div>
+                        <h4 class="fw-bold text-dark mb-1" style="font-family: var(--font-display);">
+                            <i class="fa-solid fa-cloud-sun-rain text-primary me-2"></i>Agro-Climatic Disease Risk Engine
+                        </h4>
+                        <div class="small text-muted">Adjust microclimate variables to simulate real-time epidemiological spore germination and pest risks.</div>
+                    </div>
+                    <span class="badge bg-{{ weather.badge }} fs-6 px-3 py-2" id="homeRiskBadge">{{ weather.risk_level }} Risk</span>
+                </div>
+
+                <div class="p-3 rounded-4 mb-3" style="background: #fbf8f2; border: 1px solid #eedec4;">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-4">
+                            <label class="small fw-bold text-muted">Temperature: <span id="homeTempVal">{{ weather.temperature }}</span>°C</label>
+                            <input type="range" class="form-range" id="homeTempRange" min="15" max="38" step="0.5" value="{{ weather.temperature }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small fw-bold text-muted">Relative Humidity: <span id="homeHumVal">{{ weather.humidity }}</span>%</label>
+                            <input type="range" class="form-range" id="homeHumRange" min="30" max="100" step="1" value="{{ weather.humidity }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small fw-bold text-muted">Daily Rainfall: <span id="homeRainVal">{{ weather.rainfall_mm }}</span> mm</label>
+                            <input type="range" class="form-range" id="homeRainRange" min="0" max="60" step="1" value="{{ weather.rainfall_mm }}">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-light flex-wrap gap-2">
+                        <div class="small">
+                            <strong>Dominant Threat:</strong> <span id="homeThreatSpan" class="text-danger fw-bold">{{ weather.dominant_threat }}</span>
+                            <span class="ms-2 text-muted">Score: <strong id="homeScoreSpan">{{ weather.risk_score }}</strong>/100</span>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-dark rounded-pill px-3" id="homeBtnUpdateRisk">
+                            <i class="fa-solid fa-rotate me-1"></i>Simulate Risk
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-3 small" style="background:#fefbf5; border:1px dashed #e3d2ba;">
+                    <strong class="text-dark"><i class="fa-solid fa-bullhorn text-warning me-1"></i>Agronomic Field Advisory:</strong>
+                    <ul class="mb-0 ps-3 mt-1" id="homeAdvisoryList">
+                        {% for adv in weather.advisories[:2] %}
+                            <li>{{ adv }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3D. Embedded Scan History Table -->
+            <div class="home-section-card">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <div>
+                        <h4 class="fw-bold text-dark mb-1" style="font-family: var(--font-display);">
+                            <i class="fa-solid fa-clock-rotate-left text-warning me-2"></i>Plantation Scan History
+                        </h4>
+                        <div class="small text-muted">Recent AI diagnostic records with lesion segmentation and dynamic PDF export.</div>
+                    </div>
+                    <a href="/dashboard" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+                        <span>View Full Analytics Dashboard &rarr;</span>
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead class="table-light">
+                            <tr class="small text-uppercase text-muted">
+                                <th>Specimen</th>
+                                <th>Diagnosis</th>
+                                <th>Severity & Affected Area</th>
+                                <th>Scan Date</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if records %}
+                                {% for rec in records %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <img src="/uploads/{{ rec.image_filename }}" class="thumb-sm" alt="Thumbnail" onerror="this.src='/static/samples/sample_black_pod.jpg'">
+                                                <span class="small fw-bold text-dark">#{{ rec.pred_uuid }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="fw-bold text-dark">{{ rec.disease_name }}</span>
+                                            <div class="small text-muted">{{ rec.confidence }}% confidence</div>
+                                        </td>
+                                        <td>
+                                            {% if rec.severity == 'Healthy' %}
+                                                <span class="badge-severity badge-healthy">Healthy</span>
+                                            {% elif rec.severity == 'Mild' %}
+                                                <span class="badge-severity badge-mild">Mild ({{ rec.affected_area_pct }}%)</span>
+                                            {% elif rec.severity == 'Moderate' %}
+                                                <span class="badge-severity badge-moderate">Moderate ({{ rec.affected_area_pct }}%)</span>
+                                            {% else %}
+                                                <span class="badge-severity badge-severe">Severe ({{ rec.affected_area_pct }}%)</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <span class="small text-muted">{{ rec.timestamp }}</span>
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="/result/{{ rec.image_filename }}" class="btn btn-sm btn-outline-dark rounded-pill me-1" title="View Full Diagnosis">
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Result
+                                            </a>
+                                            <a href="/export/{{ rec.id }}" class="btn btn-sm btn-outline-danger rounded-pill" title="Export PDF">
+                                                <i class="fa-solid fa-file-pdf"></i> PDF
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center py-4 text-muted">
+                                        No recent scan records found. Run a test scan below to populate history.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. Key Cocoa Pathogens Section (Full-Width Grid) -->
+            <div class="pathogens-section-card" id="pathogens">
+                <div class="pathogens-header-title">KEY COCOA PATHOGENS & SAMPLES</div>
+                <div class="pathogens-gallery-grid">
+                    <!-- Pathogen 1: Black Pod Rot -->
+                    <a href="/sample/sample_black_pod.jpg" class="pathogen-card-item">
+                        <img src="{{ url_for('static', filename='pathogen_black_pod.jpg') }}" class="pathogen-thumb-img" alt="Black Pod Rot">
+                        <div class="pathogen-name-label">Black Pod Rot</div>
+                        <div class="pathogen-sub-label">Phytophthora spp.</div>
+                        <span class="badge bg-danger mt-2">Critical Fungal</span>
+                    </a>
+
+                    <!-- Pathogen 2: VSD / Pod Borer -->
+                    <a href="/sample/sample_pod_borer.jpg" class="pathogen-card-item">
+                        <img src="{{ url_for('static', filename='pathogen_pod_borer.jpg') }}" class="pathogen-thumb-img" alt="VSD / Pod Borer">
+                        <div class="pathogen-name-label">Cocoa Pod Borer</div>
+                        <div class="pathogen-sub-label">Conopomorpha cramerella</div>
+                        <span class="badge bg-warning text-dark mt-2">Insect Pest</span>
+                    </a>
+
+                    <!-- Pathogen 3: Witches' Broom -->
+                    <a href="/sample/sample_healthy_borer.jpg" class="pathogen-card-item">
+                        <img src="{{ url_for('static', filename='pathogen_witches_broom.jpg') }}" class="pathogen-thumb-img" alt="Witches' Broom">
+                        <div class="pathogen-name-label">Witches' Broom</div>
+                        <div class="pathogen-sub-label">Moniliophthora perniciosa</div>
+                        <span class="badge bg-info mt-2">Vegetative Shoot</span>
+                    </a>
+
+                    <!-- Pathogen 4: Healthy -->
+                    <a href="/sample/sample_healthy.jpg" class="pathogen-card-item">
+                        <img src="{{ url_for('static', filename='pathogen_healthy.jpg') }}" class="pathogen-thumb-img" alt="Healthy Pod">
+                        <div class="pathogen-name-label">Healthy Pod</div>
+                        <div class="pathogen-sub-label">Theobroma cacao L.</div>
+                        <span class="badge bg-success mt-2">Optimal Vigor</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. Bottom Footer Slogan -->
+            <div class="app-footer-bar">
+                <div>
+                    <div class="footer-empower-title">
+                        <span>Empowering Farmers with Precision AI</span>
+                        <i class="fa-solid fa-sparkles footer-sparkle"></i>
+                    </div>
+                    <div class="footer-empower-sub">Built for Global Cocoa Communities & Research Centers.</div>
+                </div>
+
+                <div class="footer-icons-row">
+                    <button class="footer-icon-btn" title="Like"><i class="fa-regular fa-thumbs-up"></i></button>
+                    <button class="footer-icon-btn" title="Helpful"><i class="fa-regular fa-thumbs-down"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-side Interactive Script -->
+    <script>
+        const btnToggleScan = document.getElementById('btnToggleScan');
+        const cardQuickScan = document.getElementById('cardQuickScan');
+        const dropZoneContainer = document.getElementById('dropZoneContainer');
+        const fileInput = document.getElementById('fileInput');
+        const cameraInput = document.getElementById('cameraInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const submitScanBtn = document.getElementById('submitScanBtn');
+
+        function openDropZone() {
+            dropZoneContainer.style.display = 'block';
+            dropZoneContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        btnToggleScan.addEventListener('click', () => {
+            if (dropZoneContainer.style.display === 'block') {
+                fileInput.click();
+            } else {
+                openDropZone();
+            }
+        });
+
+        cardQuickScan.addEventListener('click', () => {
+            openDropZone();
+            fileInput.click();
+        });
+
+        function handlePreview(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    submitScanBtn.disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handlePreview(e.target.files[0]);
+            }
+        });
+
+        cameraInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileInput.files = e.target.files;
+                handlePreview(e.target.files[0]);
+            }
+        });
+
+        // Home Weather Simulator Sliders & AJAX
+        const homeTempRange = document.getElementById('homeTempRange');
+        const homeHumRange = document.getElementById('homeHumRange');
+        const homeRainRange = document.getElementById('homeRainRange');
+        const homeTempVal = document.getElementById('homeTempVal');
+        const homeHumVal = document.getElementById('homeHumVal');
+        const homeRainVal = document.getElementById('homeRainVal');
+
+        if (homeTempRange) {
+            homeTempRange.addEventListener('input', (e) => homeTempVal.innerText = e.target.value);
+            homeHumRange.addEventListener('input', (e) => homeHumVal.innerText = e.target.value);
+            homeRainRange.addEventListener('input', (e) => homeRainVal.innerText = e.target.value);
+
+            document.getElementById('homeBtnUpdateRisk').addEventListener('click', () => {
+                fetch('/api/weather_risk', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        temperature: homeTempRange.value,
+                        humidity: homeHumRange.value,
+                        rainfall_mm: homeRainRange.value
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        const r = data.data;
+                        const badge = document.getElementById('homeRiskBadge');
+                        badge.className = `badge bg-${r.badge} fs-6 px-3 py-2`;
+                        badge.innerText = `${r.risk_level} Risk`;
+                        document.getElementById('homeThreatSpan').innerText = r.dominant_threat;
+                        document.getElementById('homeScoreSpan').innerText = r.risk_score;
+
+                        const ul = document.getElementById('homeAdvisoryList');
+                        ul.innerHTML = '';
+                        r.advisories.forEach(a => {
+                            const li = document.createElement('li');
+                            li.innerText = a;
+                            ul.appendChild(li);
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+    <!-- Water Flow Background Script -->
+    <script src="{{ url_for('static', filename='water_flow.js') }}"></script>
+</body>
+
+</html>

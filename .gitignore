@@ -1,0 +1,85 @@
+# ============================================================
+# Cocoa Disease Detection Project — .gitignore
+# ============================================================
+
+# ─── Python Virtual Environments ───
+.venv/
+venv/
+env/
+ENV/
+cocoaenv/
+myenv/
+test_env/
+.venvc/
+
+# ─── Python Cache & Compiled Files ───
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.pyc
+
+# ─── Jupyter Notebook Checkpoints ───
+.ipynb_checkpoints/
+
+# ─── Training Dataset (Large — kept locally only) ───
+dataset/
+image/
+augmented/
+resize/
+resized/
+
+# ─── Nested/Duplicate Project Directories ───
+cocoa-disease/
+
+# ─── Runtime Upload & Generated Files ───
+# Keep directory structure but ignore content
+uploads/*
+!uploads/.gitkeep
+static/masks/*
+!static/masks/.gitkeep
+static/heatmaps/*
+!static/heatmaps/.gitkeep
+static/reports/*
+!static/reports/.gitkeep
+
+# ─── macOS System Files ───
+.DS_Store
+._.DS_Store
+__MACOSX/
+._*
+
+# ─── Windows System Files ───
+Thumbs.db
+desktop.ini
+
+# ─── Environment & Secrets ───
+.env
+*.env
+config_local.py
+
+# ─── Database Files (runtime — regenerated on startup) ───
+database/history.db
+*.db
+*.sqlite3
+
+# ─── Scratch / Temporary Files ───
+scratch/
+*.tmp
+*.bak
+*.swp
+*.log
+
+# ─── IDEs ───
+.idea/
+.vscode/
+*.code-workspace
+
+# ─── Redundant Model Files (keep only .keras, not .h5) ───
+cocoa_disease_model.h5
+cocoa_2.h5
+
+# ─── Large PDF Reports (optional — comment out to include) ───
+cocoa_disease_complete_master_report.pdf
+generate_complete_master_report.py

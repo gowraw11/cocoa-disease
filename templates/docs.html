@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Documentation & Project Report | Cocoa Guard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold-outer: #baa478;
+            --gold-outer-dark: #a89366;
+            --gold-accent: #c48c40;
+            --text-title: #2b2319;
+            --text-sub: #5c5040;
+            --font-serif: 'Cinzel', serif;
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: radial-gradient(circle at center, var(--gold-outer) 0%, var(--gold-outer-dark) 100%);
+            min-height: 100vh;
+            padding: 24px 16px 50px;
+            color: var(--text-title);
+            overflow-x: hidden;
+        }
+
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #edd6a6 0%, #dfc38a 35%, #cca86b 100%);
+            border-radius: 40px;
+            padding: 14px;
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.28);
+            position: relative;
+            z-index: 1;
+        }
+
+        .doc-inner {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 35px 40px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        @media (max-width: 768px) {
+            .doc-inner {
+                padding: 22px 18px;
+            }
+        }
+
+        .doc-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ecdcb9;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--text-title);
+            line-height: 1.15;
+        }
+
+        .btn-download-pdf {
+            background: linear-gradient(180deg, #d49a4a 0%, #ba7f32 100%);
+            color: #ffffff;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            box-shadow: 0 6px 16px rgba(186, 127, 50, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-download-pdf:hover {
+            background: linear-gradient(180deg, #dfa552 0%, #c48737 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Nav Tabs */
+        .nav-tabs .nav-link {
+            font-family: var(--font-display);
+            font-weight: 600;
+            color: #5c5040;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 12px 20px;
+            font-size: 1rem;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--gold-accent);
+            border-bottom: 3px solid var(--gold-accent);
+            background: transparent;
+        }
+
+        .doc-section {
+            padding: 25px 0 10px;
+        }
+
+        .doc-h2 {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #2b2319;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .metric-card-box {
+            background: #faf6ed;
+            border-radius: 18px;
+            padding: 20px;
+            border: 1px solid #ebd8b5;
+            text-align: center;
+            height: 100%;
+        }
+
+        .metric-card-num {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--gold-accent);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .code-block-box {
+            background: #201a14;
+            color: #f7ecd5;
+            border-radius: 14px;
+            padding: 18px 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            border: 1px solid var(--gold-accent);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Full-Width Documentation Container -->
+    <div class="doc-container">
+        <div class="doc-inner">
+
+            <!-- Top Header -->
+            <div class="doc-header-bar flex-wrap gap-3">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <i class="fa-solid fa-seedling text-warning fs-4"></i>
+                        <span class="text-uppercase small fw-bold text-muted">Cocoa AI System Documentation</span>
+                    </div>
+                    <h1 class="doc-title">COCOA GUARD MASTER REPORT</h1>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="/download/report" class="btn-download-pdf">
+                        <i class="fa-solid fa-file-pdf fs-5"></i>
+                        <span>Download 50-Page PDF Report (4.9 MB)</span>
+                    </a>
+                    <a href="/" class="btn btn-outline-dark rounded-pill px-3 py-2 fw-semibold">
+                        <i class="fa-solid fa-house me-1"></i>Back to App
+                    </a>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <ul class="nav nav-tabs mb-4" id="docTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#tab-summary" type="button">1. Executive Summary</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="arch-tab" data-bs-toggle="tab" data-bs-target="#tab-arch" type="button">2. Dual-Stage AI</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="pathogens-tab" data-bs-toggle="tab" data-bs-target="#tab-pathogens" type="button">3. Pathogen Profiles</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="api-tab" data-bs-toggle="tab" data-bs-target="#tab-api" type="button">4. REST API Docs</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="setup-tab" data-bs-toggle="tab" data-bs-target="#tab-setup" type="button">5. Deployment & Verification</button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="docTabsContent">
+                
+                <!-- TAB 1: EXECUTIVE SUMMARY -->
+                <div class="tab-pane fade show active" id="tab-summary" role="tabpanel">
+                    <div class="doc-section">
+                        <h2 class="doc-h2"><i class="fa-solid fa-circle-info text-warning"></i>Project Overview & Problem Statement</h2>
+                        <p class="lead fs-6 text-secondary mb-4">
+                            Cocoa (<i>Theobroma cacao L.</i>) is an essential economic cash crop sustaining over 50 million smallholder livelihoods globally. 
+                            However, annual yield destructions between 30% and 40% are caused by biological pathogens, predominantly <b>Black Pod Rot</b> (<i>Phytophthora spp.</i>) and the <b>Cocoa Pod Borer</b> (<i>Conopomorpha cramerella</i>). 
+                            Traditional manual scouting is slow, subjective, and often misdiagnoses early infections, leading to complete crop failure.
+                        </p>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3">
+                                <div class="metric-card-box">
+                                    <div class="metric-card-num">99.69%</div>
+                                    <div class="fw-bold small">Cocoa Fruit Detector</div>
+                                    <div class="small text-muted">MobileNetV2 Binary Verifier</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric-card-box">
+                                    <div class="metric-card-num">95.53%</div>
+                                    <div class="fw-bold small">Disease Classifier</div>
+                                    <div class="small text-muted">4-Class Transfer Learning</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric-card-box">
+                                    <div class="metric-card-num">&lt; 95 ms</div>
+                                    <div class="fw-bold small">Inference Latency</div>
+                                    <div class="small text-muted">Standard CPU Speed</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric-card-box">
+                                    <div class="metric-card-num">2,472</div>
+                                    <div class="fw-bold small">Balanced Dataset</div>
+                                    <div class="small text-muted">618 Images Per Class</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="fw-bold fs-5 mb-2">Core Platform Capabilities</h3>
+                        <ul class="text-secondary mb-4">
+                            <li><b>Two-Stage Detection Pipeline:</b> Rejects non-cocoa images (backgrounds, tools, hands) with 99.7% certainty before running disease classification.</li>
+                            <li><b>Precision Multi-Class Classification:</b> Identifies Black Pod Rot, Cocoa Pod Borer, Healthy Pods, and Resilient Pods with >95% accuracy.</li>
+                            <li><b>Agronomic Prescription Engine:</b> Pairs diagnoses with actionable chemical fungicides, fertilizers, biological antagonists (*Trichoderma*, neem), and cultural sanitation rules.</li>
+                            <li><b>Fluid Water Background:</b> Hardware-accelerated HTML5 Canvas water currents and interactive ripples running seamlessly beneath the interface.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TAB 2: DUAL-STAGE AI -->
+                <div class="tab-pane fade" id="tab-arch" role="tabpanel">
+                    <div class="doc-section">
+                        <h2 class="doc-h2"><i class="fa-solid fa-brain text-warning"></i>Model Architecture & Transfer Learning</h2>
+                        
+                        <div class="card p-3 mb-4 bg-light border-0">
+                            <h5 class="fw-bold mb-2">Stage 1: Cocoa Fruit Detector (Binary Classification)</h5>
+                            <p class="small text-muted mb-0">
+                                Validates whether the image contains a legitimate cocoa fruit/pod (`cocoa_2.keras` / `cocoa_2.h5`). 
+                                Uses pre-trained MobileNetV2 with GlobalAveragePooling2D, Dense(64, ReLU), Dropout(0.3), and Dense(1, Sigmoid). 
+                                Trained with class weights to eliminate false positive non-agricultural uploads.
+                            </p>
+                        </div>
+
+                        <div class="card p-3 mb-4 bg-light border-0">
+                            <h5 class="fw-bold mb-2">Stage 2: Multi-Class Disease Classifier (MobileNetV2 Transfer Learning)</h5>
+                            <p class="small text-muted mb-2">
+                                Trained on 2,472 balanced images using on-the-fly augmentation (`rotation_range=20`, `zoom_range=0.15`, horizontal/vertical flips).
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered bg-white small mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Layer</th>
+                                            <th>Type</th>
+                                            <th>Output Shape</th>
+                                            <th>Parameters</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Input</td><td>InputLayer</td><td>(None, 224, 224, 3)</td><td>0</td></tr>
+                                        <tr><td>MobileNetV2</td><td>Pretrained Base (ImageNet)</td><td>(None, 7, 7, 1280)</td><td>2,257,984 (Frozen)</td></tr>
+                                        <tr><td>GlobalAveragePooling2D</td><td>Pooling</td><td>(None, 1280)</td><td>0</td></tr>
+                                        <tr><td>BatchNormalization</td><td>Regularization</td><td>(None, 1280)</td><td>2,560</td></tr>
+                                        <tr><td>Dense Head</td><td>Dense (ReLU)</td><td>(None, 128)</td><td>163,968</td></tr>
+                                        <tr><td>Dropout (0.3)</td><td>Regularization</td><td>(None, 128)</td><td>0</td></tr>
+                                        <tr><td>Softmax Head</td><td>Dense (Softmax)</td><td>(None, 4)</td><td>516</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PATHOGEN PROFILES -->
+                <div class="tab-pane fade" id="tab-pathogens" role="tabpanel">
+                    <div class="doc-section">
+                        <h2 class="doc-h2"><i class="fa-solid fa-leaf text-success"></i>Cocoa Pathogens & Treatment Guide</h2>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card h-100 p-3 shadow-sm border-danger border-top border-4">
+                                    <h5 class="fw-bold text-danger">Black Pod Rot (Phytophthora spp.)</h5>
+                                    <p class="small text-muted">Critical fungal pathogen causing water-soaked lesions and bean decay.</p>
+                                    <ul class="small mb-2">
+                                        <li><b>Chemical:</b> Copper Hydroxide (2.5-3.0 g/L) every 14-21 days during rains.</li>
+                                        <li><b>Fertilizer:</b> Potassium Sulfate (MOP) to thicken pod cuticle rinds.</li>
+                                        <li><b>Bio-control:</b> <i>Trichoderma harzianum / viride</i> spray.</li>
+                                        <li><b>Cultural:</b> Weekly sanitation pruning; deeply bury infected pods.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 p-3 shadow-sm border-warning border-top border-4">
+                                    <h5 class="fw-bold text-warning">Cocoa Pod Borer (Conopomorpha cramerella)</h5>
+                                    <p class="small text-muted">Destructive moth larvae boring into rinds, causing clumped stunted beans.</p>
+                                    <ul class="small mb-2">
+                                        <li><b>Mechanical:</b> Plastic sleeving/bagging of young pods (6-8 cm).</li>
+                                        <li><b>Insecticide:</b> Cypermethrin or Chlorantraniliprole applied to rinds at dusk.</li>
+                                        <li><b>Fertilizer:</b> Single Super Phosphate (TSP) and Sulfur conditioners.</li>
+                                        <li><b>Cultural:</b> Complete 7-day harvesting to interrupt the moth life cycle.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 p-3 shadow-sm border-success border-top border-4">
+                                    <h5 class="fw-bold text-success">Healthy Cocoa Pod (Theobroma cacao L.)</h5>
+                                    <p class="small text-muted">Optimal crop health with unblemished furrow ridges and high bean vigor.</p>
+                                    <ul class="small mb-2">
+                                        <li><b>Fertilizer:</b> Balanced NPK 12-12-17+2MgO (350-500 g/tree/year).</li>
+                                        <li><b>Micronutrients:</b> Foliar Zn, B, and Mg sprays during flowering.</li>
+                                        <li><b>Cultural:</b> Maintain 30-40% canopy shade and clean weed-free tree basins.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 p-3 shadow-sm border-info border-top border-4">
+                                    <h5 class="fw-bold text-info">Healthy Pod (Borer Resilient)</h5>
+                                    <p class="small text-muted">Resilient pod exhibiting natural thick cuticle resistance against boring pests.</p>
+                                    <ul class="small mb-2">
+                                        <li><b>Conditioner:</b> Calcium and silicon soil conditioners.</li>
+                                        <li><b>Surveillance:</b> Install sex pheromone sticky monitoring traps nearby.</li>
+                                        <li><b>Biological:</b> Prophylactic neem extract kernel spray.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: REST API DOCS -->
+                <div class="tab-pane fade" id="tab-api" role="tabpanel">
+                    <div class="doc-section">
+                        <h2 class="doc-h2"><i class="fa-solid fa-code text-warning"></i>REST API Documentation</h2>
+                        <p class="small text-muted">Integrate automated cocoa disease diagnostics into mobile applications, drones, and IoT cameras.</p>
+
+                        <h5 class="fw-bold">1. POST /api/predict</h5>
+                        <p class="small text-secondary">Accepts multipart form-data with the image file under parameter <code>file</code>.</p>
+                        
+                        <div class="code-block-box mb-4">
+# Sample cURL Request:
+curl -X POST -F "file=@cocoa_sample.jpg" http://127.0.0.1:5000/api/predict
+
+# Sample JSON Response (200 OK):
+{
+  "success": true,
+  "is_cocoa": true,
+  "cocoa_confidence_pct": 99.78,
+  "predicted_disease": "pod_borer",
+  "disease_title": "Cocoa Pod Borer",
+  "confidence_pct": 100.0,
+  "probabilities": {
+    "black_pod_rot": 0.0,
+    "healthy": 0.0,
+    "healthy_borer": 0.0,
+    "pod_borer": 100.0
+  },
+  "treatment_summary": {
+    "severity": "High (Severe Bean Damage)",
+    "symptoms": ["Premature uneven ripening", "Pinhead bore holes with frass"],
+    "organic_treatments": ["Pod sleeving (6-8 cm)", "Neem spray at dusk"],
+    "cultural_management": ["7-day complete harvest schedule", "Husk burial"]
+  }
+}
+                        </div>
+
+                        <h5 class="fw-bold">2. GET /api/health</h5>
+                        <p class="small text-secondary">Returns system status, active models, and class definitions.</p>
+                        <div class="code-block-box">
+GET /api/health HTTP/1.1
+Response (200 OK):
+{
+  "status": "healthy",
+  "models": {
+    "detector_model": "MobileNetV2 Cocoa Detector (99.7% val accuracy)",
+    "disease_model": "MobileNetV2 Transfer Learning (95.5% val accuracy)"
+  },
+  "classes": {
+    "black_pod_rot": 0, "healthy": 1, "healthy_borer": 2, "pod_borer": 3
+  }
+}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: SETUP & VERIFICATION -->
+                <div class="tab-pane fade" id="tab-setup" role="tabpanel">
+                    <div class="doc-section">
+                        <h2 class="doc-h2"><i class="fa-solid fa-terminal text-warning"></i>Deployment, Retraining & Verification</h2>
+
+                        <h5 class="fw-bold mb-2">How to Run & Retrain the System</h5>
+                        <div class="code-block-box mb-4">
+# 1. Run the Flask Web Server:
+python app.py
+
+# 2. Retrain Models with MobileNetV2 Transfer Learning:
+python train_fast_accurate.py
+
+# 3. Generate the 50-Page Master Report PDF:
+python generate_complete_master_report.py
+                        </div>
+
+                        <div class="alert alert-success d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check fs-4"></i>
+                            <div>
+                                <b>Verification Passed:</b> Both models serialized cleanly without Keras keyword conflicts. 
+                                Inference verified across all 4 disease classes and non-cocoa distractors.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Water Flow Background Script -->
+    <script src="{{ url_for('static', filename='water_flow.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ info.title }} - Diagnostic Result | Cocoa Guard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS & FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-studio: #b3a37e;
+            --bg-studio-dark: #9e8e6b;
+            --card-cream-start: #ffffff;
+            --card-cream-mid: #fbf5e6;
+            --card-cream-end: #f5e4b8;
+            --card-gold: #ebb65c;
+            --accent-orange: #e06d28;
+            --accent-orange-dark: #c25717;
+            --text-dark: #222222;
+            --text-muted-app: #7b7468;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: radial-gradient(circle at center, var(--bg-studio) 0%, var(--bg-studio-dark) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            padding: 24px 15px 60px;
+            overflow-x: auto;
+        }
+
+        /* Top App Bar */
+        .top-nav-bar {
+            max-width: 1440px;
+            margin: 0 auto 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(16px);
+            padding: 12px 24px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-pill i {
+            color: #ffd27d;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.85);
+            color: var(--text-dark);
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-glass:hover {
+            background: #ffffff;
+            color: var(--accent-orange);
+            transform: translateY(-1px);
+        }
+
+        .btn-glass.btn-primary-glass {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        /* Alerts Area */
+        .alerts-container {
+            max-width: 1440px;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 4-Card Horizontal Studio Canvas */
+        .studio-canvas {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            align-items: stretch;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .studio-canvas {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 780px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .studio-canvas {
+                grid-template-columns: 1fr;
+                max-width: 380px;
+            }
+        }
+
+        /* Phone Screen Frame */
+        .phone-card {
+            background: linear-gradient(180deg, #ffffff 0%, #fdf8eb 45%, #f7e7c1 100%);
+            border-radius: 36px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 4px solid #ffffff;
+            padding: 22px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .phone-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 26px 55px rgba(0, 0, 0, 0.22);
+        }
+
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .header-back {
+            color: #8c8273;
+            font-size: 1.1rem;
+            text-decoration: none;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-action-badge {
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .header-circle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-orange);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border: none;
+        }
+
+        .header-title-center {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .header-sub-center {
+            font-size: 0.7rem;
+            color: #887d6d;
+            text-align: center;
+        }
+
+        /* Image View Selector Pill Tabs */
+        .view-pill-group {
+            display: flex;
+            background: #f1e5cb;
+            border-radius: 20px;
+            padding: 3px;
+            gap: 3px;
+            margin-bottom: 12px;
+        }
+
+        .view-pill-btn {
+            flex: 1;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-radius: 16px;
+            border: none;
+            background: transparent;
+            color: #5f5446;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .view-pill-btn.active {
+            background: #ffffff;
+            color: var(--accent-orange);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image Frame */
+        .pod-image-stage {
+            width: 100%;
+            height: 220px;
+            border-radius: 22px;
+            overflow: hidden;
+            background: #1a1714;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            margin-bottom: 14px;
+        }
+
+        .pod-display-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.2s ease;
+        }
+
+        /* Severity Progress Box */
+        .severity-indicator-box {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* XAI Markers Box */
+        .xai-box {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .xai-marker-item {
+            font-size: 0.74rem;
+            color: #4a4237;
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        /* Treatment and Expert Box */
+        .treatment-card-item {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .treatment-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .expert-trigger-box {
+            background: #fff5f5;
+            border: 1px dashed #dc3545;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .expert-trigger-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #dc3545;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .expert-trigger-list {
+            font-size: 0.72rem;
+            color: #6a1a24;
+            padding-left: 18px;
+            margin-bottom: 0;
+        }
+
+        .c1-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.15;
+            margin-bottom: 2px;
+        }
+
+        .c1-sub {
+            font-size: 0.76rem;
+            color: #887d6d;
+            margin-bottom: 8px;
+        }
+
+        .btn-pdf-export {
+            background: linear-gradient(180deg, #dc3545 0%, #b02a37 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
+            transition: all 0.2s;
+        }
+
+        .btn-pdf-export:hover {
+            background: #b02a37;
+            color: white;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Action Nav Bar -->
+    <div class="top-nav-bar no-print">
+        <a href="/" class="brand-pill">
+            <i class="fa-solid fa-leaf"></i>
+            <span>COCOA GUARD</span>
+        </a>
+        <div class="nav-actions">
+            <a href="/" class="btn-glass"><i class="fa-solid fa-house"></i><span>Home</span></a>
+            <a href="/dashboard" class="btn-glass"><i class="fa-solid fa-chart-pie text-success"></i><span>Dashboard</span></a>
+            <a href="/camera" class="btn-glass"><i class="fa-solid fa-video text-info"></i><span>Live Camera</span></a>
+            <a href="/search" class="btn-glass"><i class="fa-solid fa-camera"></i><span>New Scan</span></a>
+            <a href="/export/{{ pred_id }}" class="btn-glass btn-primary-glass">
+                <i class="fa-solid fa-file-pdf"></i><span>Export PDF Report</span>
+            </a>
+            <button onclick="window.print()" class="btn-glass"><i class="fa-solid fa-print"></i><span>Print</span></button>
+        </div>
+    </div>
+
+    <!-- Farmer Alerts & Uncertainty Banner -->
+    <div class="alerts-container">
+        {% if is_severe_alert or severity == 'Severe' %}
+            <div class="alert alert-danger shadow-lg border-danger d-flex align-items-center justify-content-between p-3 rounded-4 mb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation fs-1 text-danger"></i>
+                    <div>
+                        <h5 class="fw-bold mb-1 text-danger">Immediate Attention Recommended</h5>
+                        <p class="mb-0 small text-dark">
+                            Critical severity detected: <strong>{{ affected_area_pct }}% of tissue affected</strong> ({{ severity }} classification). Quarantine infected pods and apply therapeutic fungicides within 24 hours to halt field contamination!
+                        </p>
+                    </div>
+                </div>
+                <a href="/export/{{ pred_id }}" class="btn btn-danger rounded-pill px-4 fw-bold text-nowrap">
+                    <i class="fa-solid fa-download me-1"></i>Emergency PDF
+                </a>
+            </div>
+        {% endif %}
+
+        {% if is_uncertain %}
+            <div class="alert alert-warning shadow-sm border-warning d-flex align-items-center gap-3 p-3 rounded-4 mb-3">
+                <i class="fa-solid fa-circle-question fs-2 text-warning"></i>
+                <div>
+                    <h6 class="fw-bold mb-0 text-dark">Low-Confidence Diagnostic Reading</h6>
+                    <p class="mb-0 small text-muted">{{ uncertainty_message }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- 4-Screen Mobile App Studio Showcase -->
+    <div class="studio-canvas">
+
+        <!-- ================= SCREEN 1: Specimen & CV Lesion Segmentation ================= -->
+        <div class="phone-card">
+            <div>
+                <div class="screen-header">
+                    <a href="/" class="header-back"><i class="fa-solid fa-chevron-left"></i></a>
+                    <a href="/dashboard" class="header-action-badge">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Scan #{{ pred_uuid }}</span>
+                    </a>
+                </div>
+
+                <!-- Title & Species -->
+                <h2 class="c1-title">{{ info.title }}</h2>
+                <p class="c1-sub">{{ info.scientific_name }}</p>
+
+                <!-- Triad View Selector Tabs -->
+                <div class="view-pill-group">
+                    <button class="view-pill-btn active" id="tabOriginal" onclick="switchView('orig')">1. Original</button>
+                    <button class="view-pill-btn" id="tabOverlay" onclick="switchView('overlay')">2. Lesions (CV)</button>
+                    <button class="view-pill-btn" id="tabHeatmap" onclick="switchView('heatmap')">3. XAI Heatmap</button>
+                </div>
+
+                <!-- Interactive Image Display -->
+                <div class="pod-image-stage">
+                    <img id="mainDisplayImg" 
+                         src="{{ url_for('uploaded_file', filename=filename) }}" 
+                         class="pod-display-img" 
+                         alt="Specimen">
+                </div>
+
+                <!-- Severity Progress Indicator -->
+                <div class="severity-indicator-box">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="small fw-bold text-dark">Infection Severity</span>
+                        <span class="badge bg-{{ severity_badge }} px-2 py-1">{{ severity }} ({{ affected_area_pct }}%)</span>
+                    </div>
+                    <div class="progress mb-2" style="height: 8px; border-radius: 4px;">
+                        <div class="progress-bar bg-{{ severity_badge }}" style="width: {{ [affected_area_pct, 100]|min }}%;"></div>
+                    </div>
+                    <div class="text-muted" style="font-size: 0.72rem;">
+                        {{ severity_description }}
+                    </div>
+                    <div class="d-flex justify-content-between text-muted mt-2 pt-1 border-top" style="font-size: 0.7rem;">
+                        <span>Lesion clusters: <strong>{{ lesion_count }}</strong></span>
+                        <span>Confidence: <strong>{{ confidence }}%</strong></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Action -->
+            <div class="pt-2">
+                <a href="/export/{{ pred_id }}" class="btn-pdf-export">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>Export Diagnostic PDF</span>
+                </a>
+            </div>
+        </div>
+
+
+        <!-- ================= SCREEN 2: Explainable AI (XAI) & Biomarkers ================= -->
+        <div class="phone-card">
+            <div>
+                <div class="screen-header justify-content-center">
+                    <div>
+                        <div class="header-title-center">Explainable AI (XAI)</div>
+                        <div class="header-sub-center">Why was this prediction made?</div>
+                    </div>
+                </div>
+
+                <!-- Big 3 Metric Indicators -->
+                <div class="d-flex justify-content-around py-2 mb-2 bg-white rounded-3 shadow-sm text-center">
+                    <div>
+                        <div class="fw-bold fs-5 text-dark">{{ confidence }}%</div>
+                        <div class="text-muted" style="font-size:0.65rem;">Top Activation</div>
+                    </div>
+                    <div class="border-start"></div>
+                    <div>
+                        <div class="fw-bold fs-5 text-dark">{{ affected_area_pct }}%</div>
+                        <div class="text-muted" style="font-size:0.65rem;">Surface Necrosis</div>
+                    </div>
+                    <div class="border-start"></div>
+                    <div>
+                        <div class="fw-bold fs-5 text-dark">{{ cocoa_confidence }}%</div>
+                        <div class="text-muted" style="font-size:0.65rem;">Fruit Verification</div>
+                    </div>
+                </div>
+
+                <!-- Explainability Rationale Box -->
+                <div class="xai-box">
+                    <div class="fw-bold text-dark small mb-2">
+                        <i class="fa-solid fa-brain text-warning me-1"></i>MobileNetV2 Attention Logic:
+                    </div>
+                    {% for marker in xai_markers %}
+                        <div class="xai-marker-item">
+                            <i class="fa-solid fa-circle-check text-success me-1"></i>{{ marker }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Probability Distribution -->
+                <div class="bg-white rounded-3 p-3 shadow-sm mb-3">
+                    <div class="small fw-bold text-dark mb-2">Softmax Class Probabilities</div>
+                    {% for item in breakdown %}
+                        <div class="mb-2">
+                            <div class="d-flex justify-content-between text-muted" style="font-size:0.72rem;">
+                                <span>{{ item.title }}</span>
+                                <strong>{{ item.percentage }}%</strong>
+                            </div>
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar bg-{{ item.badge_color }}" style="width: {{ item.percentage }}%;"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Phytosanitary Disclaimer -->
+                <div class="p-2 rounded" style="background:#fefbf5; border:1px solid #ede1cf; font-size:0.68rem; color:#7d6f5c;">
+                    <i class="fa-solid fa-shield-halved text-warning me-1"></i>
+                    <strong>AI Decision Support Disclaimer:</strong> {{ xai_disclaimer }}
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="pt-2 text-center text-muted small">
+                <span>Model: MobileNetV2 Transfer Learning</span>
+            </div>
+        </div>
+
+
+        <!-- ================= SCREEN 3: Timeline, Severity & Agro-Climatic Risk ================= -->
+        <div class="phone-card">
+            <div>
+                <div class="screen-header">
+                    <a href="/" class="header-back"><i class="fa-solid fa-chevron-left"></i></a>
+                    <span class="fw-bold small text-dark">Agro-Climatic Risk</span>
+                    <button class="header-circle-btn"><i class="fa-solid fa-cloud-sun"></i></button>
+                </div>
+
+                <!-- Environmental Risk Card -->
+                <div class="bg-white rounded-3 p-3 shadow-sm mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="small fw-bold text-dark">Microclimate Threat</span>
+                        <span class="badge bg-{{ weather_risk.badge }} px-2 py-1">{{ weather_risk.risk_level }} Risk ({{ weather_risk.risk_score }}/100)</span>
+                    </div>
+                    <div class="small text-muted mb-2">
+                        <strong>Primary Threat:</strong> {{ weather_risk.dominant_threat }}
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small border-top pt-2" style="font-size:0.72rem;">
+                        <span><i class="fa-solid fa-temperature-half me-1"></i>{{ weather_risk.temperature }}°C</span>
+                        <span><i class="fa-solid fa-droplet me-1"></i>{{ weather_risk.humidity }}% RH</span>
+                        <span><i class="fa-solid fa-cloud-rain me-1"></i>{{ weather_risk.rainfall_mm }} mm</span>
+                    </div>
+                </div>
+
+                <!-- Biological Symptoms Checklist -->
+                <div class="bg-white rounded-3 p-3 shadow-sm mb-3">
+                    <div class="small fw-bold text-dark mb-2">
+                        <i class="fa-solid fa-clipboard-check text-warning me-1"></i>Key Disease Symptoms
+                    </div>
+                    <ul class="mb-0 ps-3" style="font-size: 0.72rem; color: #4a4237;">
+                        {% for sym in info.symptoms[:4] %}
+                            <li class="mb-1">{{ sym }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Cultural Management Protocols -->
+                <div class="bg-white rounded-3 p-3 shadow-sm">
+                    <div class="small fw-bold text-dark mb-2">
+                        <i class="fa-solid fa-hand-holding-hand text-success me-1"></i>Cultural Field Practices
+                    </div>
+                    <ul class="mb-0 ps-3" style="font-size: 0.72rem; color: #4a4237;">
+                        {% for cul in info.cultural_management[:3] %}
+                            <li class="mb-1">{{ cul }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Stage Footer -->
+            <div class="pt-2 text-center text-muted small">
+                <span class="badge bg-light text-dark border">Phytosanitary Stage: {{ severity }}</span>
+            </div>
+        </div>
+
+
+        <!-- ================= SCREEN 4: Remedies, Fertilizers & Expert Triggers ================= -->
+        <div class="phone-card" id="care">
+            <div>
+                <div class="screen-header">
+                    <a href="/" class="header-back"><i class="fa-solid fa-chevron-left"></i></a>
+                    <span class="fw-bold small text-dark">Prescription & Protocol</span>
+                    <button class="header-circle-btn"><i class="fa-solid fa-flask"></i></button>
+                </div>
+
+                <!-- Chemical & Fertilizer Treatment -->
+                <div class="mb-2">
+                    <div class="small fw-bold text-dark mb-1">
+                        <i class="fa-solid fa-spray-can text-danger me-1"></i>Chemical & Fertilizer Protocol
+                    </div>
+                    {% if info.chemical_fertilizers %}
+                        {% for chem in info.chemical_fertilizers[:2] %}
+                            <div class="treatment-card-item">
+                                <img src="{{ url_for('static', filename=chem.image) }}" 
+                                     class="treatment-thumb" 
+                                     alt="{{ chem.name }}" 
+                                     onerror="this.src='/static/potash.jpg'">
+                                <div>
+                                    <div class="fw-bold text-dark" style="font-size: 0.78rem;">{{ chem.name }}</div>
+                                    <div class="text-muted" style="font-size: 0.68rem; line-height: 1.25;">{{ chem.description[:110] }}...</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <!-- Organic & Biological Controls -->
+                <div class="mb-2">
+                    <div class="small fw-bold text-dark mb-1">
+                        <i class="fa-solid fa-seedling text-success me-1"></i>Organic / Bio-Control
+                    </div>
+                    <div class="bg-white rounded-3 p-2 shadow-sm" style="font-size: 0.72rem; color: #3b352c;">
+                        {% for org in info.organic_treatments[:2] %}
+                            <div class="mb-1">• {{ org }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- When to Seek Expert Assistance -->
+                <div class="expert-trigger-box">
+                    <div class="expert-trigger-title">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>When to Seek Expert Assistance</span>
+                    </div>
+                    <ul class="expert-trigger-list">
+                        {% for trigger in info.expert_consultation_triggers[:3] %}
+                            <li>{{ trigger }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="pt-2">
+                <a href="/export/{{ pred_id }}" class="btn-pdf-export w-100">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Download Official Report</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script for Interactive Triad Image Switching -->
+    <script>
+        const origUrl = "{{ url_for('uploaded_file', filename=filename) }}";
+        const overlayUrl = "{{ url_for('static', filename='masks/' + overlay_filename) }}";
+        const heatmapUrl = "{{ url_for('static', filename='heatmaps/' + heatmap_filename) }}";
+        const mainImg = document.getElementById('mainDisplayImg');
+
+        function switchView(view) {
+            document.getElementById('tabOriginal').classList.remove('active');
+            document.getElementById('tabOverlay').classList.remove('active');
+            document.getElementById('tabHeatmap').classList.remove('active');
+
+            if (view === 'orig') {
+                mainImg.src = origUrl;
+                document.getElementById('tabOriginal').classList.add('active');
+            } else if (view === 'overlay') {
+                mainImg.src = overlayUrl;
+                document.getElementById('tabOverlay').classList.add('active');
+            } else if (view === 'heatmap') {
+                mainImg.src = heatmapUrl;
+                document.getElementById('tabHeatmap').classList.add('active');
+            }
+        }
+    </script>
+    <!-- Water Flow Background Script -->
+    <script src="{{ url_for('static', filename='water_flow.js') }}"></script>
+</body>
+
+</html>

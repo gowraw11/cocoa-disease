@@ -1,0 +1,181 @@
+{
+  "black_pod_rot": {
+    "key": "black_pod_rot",
+    "title": "Black Pod Rot",
+    "scientific_name": "Phytophthora palmivora / P. megakarya",
+    "badge_color": "danger",
+    "status_type": "disease",
+    "default_severity": "Critical (High Crop Loss)",
+    "summary": "A highly contagious oomycete fungal disease attacking cocoa pods at all developmental stages. Under high relative humidity (>80%) and persistent precipitation, spores spread rapidly through rain splash and ant vectors, causing necrotic rotting of husk and internal beans.",
+    "symptoms": [
+      "Small, translucent dark brown or water-soaked circular lesions on pod rind",
+      "Rapid lesion expansion engulfing the entire pod surface within 5 to 14 days",
+      "Dense white velvety mycelial sporulation visible under high humidity and shade",
+      "Internal pulp and cocoa beans turn dark, soften, and rot into unusable black matter",
+      "Infected pods dry out, turn into hardened mummies, and remain suspended on branches"
+    ],
+    "chemical_fertilizers": [
+      {
+        "name": "Copper Hydroxide / Cuprous Oxide Fungicide",
+        "description": "Spray 2.5 - 3.0 g/L copper fungicide every 14-21 days during high rainfall windows to build a protective chemical barrier against sporangia germination.",
+        "image": "c2.png"
+      },
+      {
+        "name": "Potassium Sulfate / MOP (Muriate of Potash)",
+        "description": "Apply 150-250 g per mature tree around the drip line to reinforce epidermal cell walls, pod cuticle toughness, and vascular disease resistance.",
+        "image": "potash.jpg"
+      },
+      {
+        "name": "Calcium & Micronutrient Blend",
+        "description": "Foliar application to boost cell membrane stability and reduce cuticle cracking that enables zoospore entry.",
+        "image": "th.jpg"
+      }
+    ],
+    "organic_treatments": [
+      "Canopy and soil spray of bio-control agent Trichoderma harzianum or T. asperellum (10^8 spores/mL) to antagonize Phytophthora resting spores.",
+      "Apply aged compost tea enriched with beneficial antagonistic bacillus strains around tree root zones.",
+      "Foliar application of 3% cold-pressed neem seed oil emulsion as an anti-sporulation deterrent."
+    ],
+    "cultural_management": [
+      "Weekly Phytosanitary Sanitation: Harvest and bury all infected pods at least 30 cm deep with quicklime or burn outside the plantation.",
+      "Canopy Architecture Pruning: Thin overlapping chupons and dense branches to maintain 30-40% filtered sunlight, enhancing air circulation and accelerating leaf drying.",
+      "Contour Drainage: Excavate 30-45 cm deep contour trenches in waterlogged areas to prevent standing moisture and splash dispersal."
+    ],
+    "expert_consultation_triggers": [
+      "Infection observed on more than 20% of mature pods in a single orchard block.",
+      "Disease lesions detected spreading down peduncles into trunk bark causing Phytophthora stem cankers.",
+      "Routine copper fungicide applications fail to halt lesion expansion within 14 days.",
+      "High regional outbreak alerts announced by Ministry of Agriculture / Cocoa Research Institute."
+    ]
+  },
+  "pod_borer": {
+    "key": "pod_borer",
+    "title": "Cocoa Pod Borer (CPB)",
+    "scientific_name": "Conopomorpha cramerella",
+    "badge_color": "warning",
+    "status_type": "pest",
+    "default_severity": "High (Severe Quality Degradation)",
+    "summary": "A destructive micro-moth whose larvae hatch on pod rinds and bore directly into internal tissues. Feeding on placental mucilage and vascular strands disrupts nutrient distribution, causing premature uneven yellowing and clumped, stunted beans that stick to the husk wall.",
+    "symptoms": [
+      "Premature, irregular yellow-orange blotchy ripening while pods are still undersized",
+      "Minute entrance and exit pinholes (0.5 - 1 mm) on pod grooves with dried brown larval frass",
+      "Internal cocoa beans fail to develop individually, cementing together into a hardened mass",
+      "Severe loss of extractable wet bean weight and poor fermentation qualities"
+    ],
+    "chemical_fertilizers": [
+      {
+        "name": "Single Super Phosphate (SSP / DAP)",
+        "description": "Promotes rapid early pod expansion and uniform maturation, shortening the vulnerable tender rind stage.",
+        "image": "phosph.jpg"
+      },
+      {
+        "name": "Elemental Sulfur & Magnesium Foliar Blend",
+        "description": "Increases bean protein and fat content while invigorating systemic insect defense secondary metabolites.",
+        "image": "sulp.jpg"
+      },
+      {
+        "name": "Balanced NPK 12-12-17 + MgO",
+        "description": "Supplies sustained macro-nutrition during pod development to enhance pod rind lignification.",
+        "image": "organic.jpg"
+      }
+    ],
+    "organic_treatments": [
+      "Pod Sleeving / Bagging: Cover developing pods at 6-8 cm length with clear perforated polyethylene sleeves open at the bottom.",
+      "Bio-pesticide Spray: Apply Bacillus thuringiensis (Bt) kurstaki at dusk during active adult moth nocturnal flight windows.",
+      "Deploy female sex pheromone delta traps (3-4 traps/hectare) to disrupt male moth mating cycles and monitor population spikes."
+    ],
+    "cultural_management": [
+      "Frequent Complete Harvesting: Harvest all mature pods every 7 days without delay to prevent borer larvae from completing development.",
+      "Husks Sanitation: Immediately crack pods in the field and seal or bury husks under plastic sheets to eliminate pupating larvae.",
+      "Sanitation Pruning: Keep tree height below 3.5 to 4 meters to facilitate canopy inspection, sleeving, and targeted application."
+    ],
+    "expert_consultation_triggers": [
+      "Borer infestation rate exceeds 15% of harvested pods in consecutive weeks.",
+      "First regional sighting reported in previously uninfested cocoa production zones.",
+      "Unexplained internal bean cementing occurring without visible surface entrance holes.",
+      "Need for community-wide synchronized harvesting and pheromone disruption campaigns."
+    ]
+  },
+  "healthy": {
+    "key": "healthy",
+    "title": "Healthy Cocoa Pod",
+    "scientific_name": "Theobroma cacao (Optimal Vigor)",
+    "badge_color": "success",
+    "status_type": "healthy",
+    "default_severity": "Optimal (Pathogen Free)",
+    "summary": "The pod exhibits outstanding vegetative vigor, uniform skin coloration, and healthy cuticular integrity. No symptoms of necrotic fungal invasion, oomycete sporulation, insect boring, or nutrient chlorosis are detected.",
+    "symptoms": [
+      "Vibrant, uniform pod coloration characteristic of the specific cocoa cultivar (green, yellow, or crimson)",
+      "Smooth, intact epidermal ridges and furrows without necrotic depressions or discoloration",
+      "Strong, firm peduncle connection with no stem-end rot or fungal hyphae",
+      "Complete absence of insect frass, bore holes, or water-soaked lesions"
+    ],
+    "chemical_fertilizers": [
+      {
+        "name": "Balanced Compound Fertilizer (NPK 15-15-15)",
+        "description": "Apply 200 g per tree in two split doses (early rainy season and mid-season) to sustain continuous cherelle and pod formation.",
+        "image": "savayav.jpg"
+      },
+      {
+        "name": "Micronutrient Complex (Zinc, Boron, Copper)",
+        "description": "Foliar spray during peak flowering and cherelle emergence to prevent flower drop and ensure full pod elongation.",
+        "image": "magnesium.jpg"
+      }
+    ],
+    "organic_treatments": [
+      "Top-dress with 10 kg of well-aged farmyard manure or vermicompost around each tree canopy basin once annually.",
+      "Maintain a 5 cm leaf mulch carpet across the plantation floor to conserve soil moisture, foster beneficial mycorrhizae, and regulate soil temperatures."
+    ],
+    "cultural_management": [
+      "Conduct routine bi-weekly orchard health walkthroughs to record cherelle wilt and monitor any pest migration.",
+      "Maintain beneficial shade canopy trees (e.g. Inga, Gliricidia) at 30% density to avoid sun scalding of young pods.",
+      "Maintain clean, weed-free tree basins (1.5 m radius) to prevent competition for soil moisture and nutrients."
+    ],
+    "expert_consultation_triggers": [
+      "Severe cherelle wilt (>50% abortion of young fruits under 5 cm) indicating hormonal or nutritional imbalances.",
+      "Soil nutrient profiling every 2-3 years through local university agricultural labs.",
+      "Advice on cultivar grafting or clonal propagation for higher yield resistance."
+    ]
+  },
+  "healthy_borer": {
+    "key": "healthy_borer",
+    "title": "Resilient Cocoa Pod",
+    "scientific_name": "Theobroma cacao (High Pest Resilience)",
+    "badge_color": "info",
+    "status_type": "healthy",
+    "default_severity": "Vigorous (Active Surveillance Recommended)",
+    "summary": "The pod demonstrates high physiological resilience, robust rind thickness, and epidermal wax density that deter pest attacks. No active boring larvae or deep penetration discovered.",
+    "symptoms": [
+      "Dense, thick cuticular rind offering natural physical impedance to boring larvae",
+      "Normal chloroplastic skin pigmentation and steady fruit expansion",
+      "Absence of premature uneven ripening symptoms across all pod faces",
+      "Fully intact bean arrangement and clear, healthy internal mucilage"
+    ],
+    "chemical_fertilizers": [
+      {
+        "name": "Calcium & Silicon Soil Conditioners",
+        "description": "Applies silica and soluble calcium to thicken epidermal cell walls, mechanically frustrating insect stylets and mandibles.",
+        "image": "th.jpg"
+      },
+      {
+        "name": "MOP / Sulfate of Potash",
+        "description": "Elevates cellular sap osmotic pressure, supporting resilience against abiotic drought and mechanical insect feeding.",
+        "image": "potash.jpg"
+      }
+    ],
+    "organic_treatments": [
+      "Prophylactic foliar spraying of cold-pressed neem kernel water extract (5%) as an insect anti-feedant.",
+      "Encourage colonies of antagonistic black ants (Dolichoderus thoracicus) or weaver ants (Oecophylla) as biological bodyguards in the canopy."
+    ],
+    "cultural_management": [
+      "Maintain pheromone surveillance traps on surrounding field perimeters to catch early pest build-up before pods are attacked.",
+      "Deploy protective sleeves on young cherelles if surrounding plots report pest resurgence.",
+      "Prune excess chupons and lower drooping branches to ensure clear pod visibility from ground level."
+    ],
+    "expert_consultation_triggers": [
+      "Sudden localized surge of borer moths in perimeter pheromone traps exceeding 5 moths/trap/week.",
+      "Symptoms of superficial skin scarring developing into deep necrotic cavities.",
+      "Guidance on introducing certified resistant clonal scions for orchard rejuvenation."
+    ]
+  }
+}
